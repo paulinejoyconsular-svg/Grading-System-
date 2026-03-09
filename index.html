@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gumamela Pro Grade Manager - Paulene Joy Consular</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+    
+    body { 
+        min-height: 100vh; 
+        /* BLACK BACKGROUND PARA MA-EMPHASIZE ANG THEME */
+        background: #000000; 
+        display: flex; 
+        justify-content: center; 
+        align-items: center; 
+        padding: 40px 20px; 
+    }
+
+    .container { 
+        width: 100%; 
+        max-width: 1100px; 
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    /* GUMAMELA INSPIRED GLASS PANELS */
+    .glass-panel {
+        background: rgba(255, 255, 255, 0.07); /* Semi-transparent black/white mix */
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 30px;
+        color: white;
+        box-shadow: 0 10px 40px rgba(233, 30, 99, 0.2); /* Pink glow shadow */
+        border: 1px solid rgba(233, 30, 99, 0.4); /* Gumamela Red border */
+        animation: slideUp 0.6s ease-out;
+    }
+
+    @keyframes slideUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .header-section { text-align: center; margin-bottom: 25px; }
+    .header-section h1 { font-size: 28px; color: #fff; text-shadow: 0 0 10px rgba(233, 30, 99, 0.5); }
+    .header-section p { font-weight: 600; color: #ff4081; letter-spacing: 1px; }
+
+    .input-section { 
+        display: flex; 
+        flex-wrap: wrap; 
+        gap: 12px; 
+        justify-content: center; 
+        padding: 20px; 
+        background: rgba(0,0,0,0.3);
+        border-radius: 12px;
+    }
+    
+    .input-group { display: flex; flex-direction: column; }
+    .input-group label { font-size: 11px; margin-bottom: 5px; color: #ff80ab; font-weight: 600; text-transform: uppercase; }
+    
+    input { 
+        padding: 12px; 
+        border-radius: 8px; 
+        border: 1px solid #c2185b; 
+        background: #1a1a1a; 
+        color: #fff; 
+        outline: none;
+        transition: 0.3s;
+    }
+    input:focus { border-color: #ff4081; box-shadow: 0 0 8px rgba(255, 64, 129, 0.5); }
+
+    input[readonly] { background: #2d0010; color: #ff80ab; cursor: not-allowed; border-color: #880e4f; }
+    input[type="number"] { width: 75px; text-align: center; font-weight: bold; }
+    .input-name { width: 220px; }
+    .input-course { width: 120px; }
+
+    .add-btn { 
+        padding: 12px 25px; 
+        border-radius: 8px; 
+        border: none; 
+        cursor: pointer; 
+        font-weight: 600; 
+        background: #e91e63; 
+        color: white; 
+        margin-top: 20px;
+        transition: 0.3s;
+        text-transform: uppercase;
+    }
+    .add-btn:hover { background: #ff4081; transform: scale(1.05); box-shadow: 0 0 15px rgba(233, 30, 99, 0.6); }
+
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th { background: rgba(233, 30, 99, 0.2); padding: 15px; font-size: 13px; color: #ff80ab; text-transform: uppercase; text-align: center; }
+    td { padding: 15px; text-align: center; border-bottom: 1px solid rgba(255, 255, 255, 0.05); color: #ddd; }
+    
+    .status-Pass { color: #00ffab; font-weight: bold; background: rgba(0, 255, 171, 0.1); padding: 5px 12px; border-radius: 6px; border: 1px solid rgba(0, 255, 171, 0.3); }
+    .status-Fail { color: #ff5252; font-weight: bold; background: rgba(255, 82, 82, 0.1); padding: 5px 12px; border-radius: 6px; border: 1px solid rgba(255, 82, 82, 0.3); }
+    
+    .delete-btn { background: transparent; color: #ff5252; padding: 5px 10px; border-radius: 5px; border: 1px solid #ff5252; cursor: pointer; font-size: 11px; transition: 0.3s; }
+    .delete-btn:hover { background: #ff5252; color: white; }
+
+    .summary { 
+        margin-top: 25px; 
+        text-align: right; 
+        font-size: 22px; 
+        font-weight: 600; 
+        color: #ff4081; 
+        text-shadow: 0 0 10px rgba(233, 30, 99, 0.3);
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="glass-panel">
+        <div class="header-section">
+            <h1>🌺 Grade Management System</h1>
+            <p>Paulene Joy Consular — BSIT-3A</p>
+        </div>
+
+        <div class="input-section">
+            <div class="input-group">
+                <label>Student Name</label>
+                <input type="text" id="name" class="input-name" placeholder="Full Name">
+            </div>
+            <div class="input-group">
+                <label>Section/Course</label>
+                <input type="text" id="course" class="input-course" placeholder="e.g. BSIT-3A">
+            </div>
+            <div class="input-group"><label>Math</label><input type="number" id="math" placeholder="00" oninput="limit(this)"></div>
+            <div class="input-group"><label>Eng</label><input type="number" id="english" placeholder="00" oninput="limit(this)"></div>
+            <div class="input-group"><label>Sci</label><input type="number" id="science" placeholder="00" oninput="limit(this)"></div>
+            <div class="input-group"><label>Hist</label><input type="number" id="history" placeholder="00" oninput="limit(this)"></div>
+            <div class="input-group"><label>P.E.</label><input type="number" id="pe" placeholder="00" oninput="limit(this)"></div>
+            <button class="add-btn" onclick="addStudent()">Add Record</button>
+        </div>
+    </div>
+
+    <div class="glass-panel">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Course</th>
+                    <th>Math</th>
+                    <th>Eng</th>
+                    <th>Sci</th>
+                    <th>Hist</th>
+                    <th>P.E.</th>
+                    <th>Average</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="studentTable"></tbody>
+        </table>
+        <div class="summary">
+            Overall Class Avg: <span id="classAverage" style="color: #fff;">0.00</span>
+        </div>
+    </div>
+</div>
+
+<script>
+let students = JSON.parse(localStorage.getItem("pauline_black_gumamela")) || [];
+
+function limit(el) {
+    if (el.value.length > 2) el.value = el.value.slice(0, 2);
+}
+
+function checkLock() {
+    const courseInput = document.getElementById("course");
+    if (students.length > 0) {
+        courseInput.value = students[0].course;
+        courseInput.readOnly = true;
+    } else {
+        courseInput.readOnly = false;
+        courseInput.value = "";
+    }
+}
+
+function addStudent() {
+    const nameInput = document.getElementById("name");
+    const name = nameInput.value.trim();
+    const courseInput = document.getElementById("course");
+    const course = courseInput.value.trim();
+    
+    const grades = {
+        m: parseFloat(document.getElementById("math").value),
+        e: parseFloat(document.getElementById("english").value),
+        s: parseFloat(document.getElementById("science").value),
+        h: parseFloat(document.getElementById("history").value),
+        p: parseFloat(document.getElementById("pe").value)
+    };
+
+    if (!name || !course || Object.values(grades).some(g => isNaN(g) || g < 0 || g > 99)) {
+        alert("Pakisagutan ang pangalan at 2-digit grades!");
+        return;
+    }
+
+    const avg = ((grades.m + grades.e + grades.s + grades.h + grades.p) / 5).toFixed(2);
+    students.push({ name, course, ...grades, avg: parseFloat(avg) });
+
+    localStorage.setItem("pauline_black_gumamela", JSON.stringify(students));
+    courseInput.readOnly = true;
+    
+    render();
+    clearInputs();
+}
+
+function render() {
+    const table = document.getElementById("studentTable");
+    table.innerHTML = "";
+    
+    students.forEach((s, i) => {
+        const status = s.avg >= 75 ? "Pass" : "Fail";
+        table.innerHTML += `
+            <tr>
+                <td style="color:#fff; font-weight:bold;">${s.name}</td>
+                <td>${s.course}</td>
+                <td>${s.m}</td>
+                <td>${s.e}</td>
+                <td>${s.s}</td>
+                <td>${s.h}</td>
+                <td>${s.p}</td>
+                <td style="color:#ff4081; font-weight:bold;">${s.avg}</td>
+                <td><span class="status-${status}">${status}</span></td>
+                <td><button class="delete-btn" onclick="deleteStudent(${i})">Delete</button></td>
+            </tr>`;
+    });
+    
+    let total = students.length > 0 ? (students.reduce((sum, s) => sum + s.avg, 0) / students.length).toFixed(2) : "0.00";
+    document.getElementById("classAverage").textContent = total;
+}
+
+function deleteStudent(index) {
+    students.splice(index, 1);
+    localStorage.setItem("pauline_black_gumamela", JSON.stringify(students));
+    checkLock();
+    render();
+}
+
+function clearInputs() {
+    ["name", "math", "english", "science", "history", "pe"].forEach(id => document.getElementById(id).value = "");
+    document.getElementById("name").focus();
+}
+
+checkLock();
+render();
+</script>
+</body>
+</html>
